@@ -62,7 +62,7 @@ export const handleDirectory = (
   const matches = glob.sync(path.join(rootPath, dirPath, matchPattern));
   matches.map((filePath: string) => {
     const file = matter.read(filePath);
-    doIndex("der123", file);
+    doIndex("project", file); // TODO: index name
   });
 };
 
