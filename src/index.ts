@@ -1,9 +1,16 @@
-import { handleDirectory, handleDocument, readSettings } from "./importer";
+import {
+  handleDirectory,
+  handleDocument,
+  handleSettings,
+  handleTemplates,
+  readSettings,
+} from "./importer";
 
 const projectDirectory = process.argv[2];
 
 const settings = readSettings(projectDirectory);
 
+// read in content
 settings.sections.map((section) => {
   switch (section.type) {
     case "directory":
@@ -16,3 +23,9 @@ settings.sections.map((section) => {
       console.log("other");
   }
 });
+
+// read in templates
+handleTemplates(projectDirectory);
+
+// read in project settings
+handleSettings(projectDirectory);

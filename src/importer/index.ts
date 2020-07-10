@@ -67,7 +67,23 @@ export const handleDirectory = (
 };
 
 export const handleDocument = (rootPath: string, documentPath: string) => {
-  console.log(documentPath);
+  const file = matter.read(path.join(rootPath, documentPath));
+  doIndex("project", file); // TODO: index name
+};
+
+export const handleTemplates = (rootPath: string) => {
+  const matches = glob.sync(
+    path.join(rootPath, ".forestry", "front_matter", "templates", "*.yml")
+  );
+  matches.map((filePath: string) => {
+    const file = matter.read(filePath);
+    doIndex("project-templates", file);
+  });
+};
+
+export const handleSettings = (rootPath: string) => {
+  const file = matter.read(path.join(rootPath, ".forestry", "settings.yml"));
+  doIndex("project-settings", file);
 };
 
 const client = new Client({ node: "http://localhost:9200" });
